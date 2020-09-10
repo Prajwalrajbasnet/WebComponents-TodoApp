@@ -23,6 +23,8 @@ appTemplate.innerHTML = `
 </section>
 `;
 
+const LOCAL_STORAGE_KEY = 'WC-Todos';
+
 class TodoApp extends HTMLElement {
   constructor() {
     super();
@@ -30,7 +32,8 @@ class TodoApp extends HTMLElement {
       appTemplate.content.cloneNode(true)
     );
     // array to store all the todos
-    this.todos = [
+    console.log(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
+    this.todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [
       { task: 'Learn Web Components', completed: false },
       { task: 'Finish Todo App', completed: false },
       { task: "Learn about project and it's scope", completed: true },
@@ -42,16 +45,19 @@ class TodoApp extends HTMLElement {
     this.todoList = this.shadowRoot.querySelector('.todo-list');
     this.todoInput.addEventListener('onSubmit', this.addTodo.bind(this));
     this.render();
+    this.saveTodos();
   }
 
   addTodo(e) {
     this.todos.push({ task: e.detail, completed: false });
     this.render();
+    this.saveTodos();
   }
 
   removeTodo(e) {
     this.todos.splice(e.detail, 1);
     this.render();
+    this.saveTodos();
   }
 
   toggleCompleted(e) {
@@ -60,6 +66,10 @@ class TodoApp extends HTMLElement {
       completed: !itemBefore.completed,
     });
     this.render();
+  }
+
+  saveTodos() {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.todos));
   }
 
   //method which gets called initially and everytime the UI needs to update
