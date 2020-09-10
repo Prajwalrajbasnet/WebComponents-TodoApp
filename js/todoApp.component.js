@@ -64,13 +64,11 @@ class TodoApp extends HTMLElement {
 
   toggleCompleted(e) {
     const itemBefore = this.todos[e.detail];
-    this.todos = [
-      ...this.todos.slice(0, e.detail),
-      Object.assign({}, itemBefore, {
-        completed: !itemBefore.completed,
-      }),
-      ...this.todos.slice(e.detail + 1, this.todos.length),
-    ];
+    const list = [...this.todos];
+    list[e.detail] = Object.assign({}, itemBefore, {
+      completed: !itemBefore.completed,
+    });
+    this.todos = [...list];
     this.render();
     this.saveTodos();
   }
