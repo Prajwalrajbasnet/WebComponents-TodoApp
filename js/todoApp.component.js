@@ -49,22 +49,29 @@ class TodoApp extends HTMLElement {
   }
 
   addTodo(e) {
-    this.todos.push({ task: e.detail, completed: false });
+    this.todos = [...this.todos, { task: e.detail, completed: false }];
     this.render();
     this.saveTodos();
   }
 
   removeTodo(e) {
-    this.todos.splice(e.detail, 1);
+    this.todos = [
+      ...this.todos.slice(0, e.detail),
+      ...this.todos.slice(e.detail + 1, this.todos.length),
+    ];
     this.render();
     this.saveTodos();
   }
 
   toggleCompleted(e) {
     const itemBefore = this.todos[e.detail];
-    this.todos[e.detail] = Object.assign({}, itemBefore, {
-      completed: !itemBefore.completed,
-    });
+    this.todos = [
+      ...this.todos.slice(0, e.detail),
+      Object.assign({}, itemBefore, {
+        completed: !itemBefore.completed,
+      }),
+      ...this.todos.slice(e.detail + 1, this.todos.length),
+    ];
     this.render();
   }
 
