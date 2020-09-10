@@ -1,6 +1,7 @@
 const todoItemTemplate = document.createElement('template');
 todoItemTemplate.innerHTML = `
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
     .todo.completed{
       text-decoration: line-through;
     }
