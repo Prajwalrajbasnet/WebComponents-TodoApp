@@ -86,8 +86,6 @@ class TodoApp extends HTMLElement {
       todoItem.setAttribute('task', item.task);
       todoItem.setAttribute('completed', item.completed);
       todoItem.setAttribute('index', index);
-      // todoItem.index = index;
-      // todoItem.completed = item.completed;
       todoItem.addEventListener('toggle', this.toggleCompleted.bind(this));
       todoItem.addEventListener('delete', this.removeTodo.bind(this));
       this.todoList.appendChild(todoItem);
