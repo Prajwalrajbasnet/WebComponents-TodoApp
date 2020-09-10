@@ -1,7 +1,22 @@
 const appTemplate = document.createElement('template');
 appTemplate.innerHTML = `
-<style></style>
-<section>
+<style>
+  .applet{
+    background-color: #fff;
+    display: inline-block;
+    min-width: 450px;
+  }
+  ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .todo-list{
+    padding: 0 12px;
+    margin-bottom: 20px;
+  }
+</style>
+<section class="applet">
   <todo-input></todo-input>
   <ul class="todo-list"></ul>
 </section>

@@ -2,8 +2,19 @@ const todoItemTemplate = document.createElement('template');
 todoItemTemplate.innerHTML = `
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
-    .todo.completed{
+    .todo.completed .taskTitle{
       text-decoration: line-through;
+    }
+    .todo{
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 300;
+      padding: 15px 0;
+      border-bottom: 1px solid #d3d3d3;
+    }
+    .taskTitle{
+      display: inline-block;
+      width: 75%;
+      padding-left: 15px;
     }
   </style>
   <li class="todo">
