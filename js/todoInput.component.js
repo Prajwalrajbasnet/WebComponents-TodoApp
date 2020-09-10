@@ -1,6 +1,20 @@
 const inputTemplate = document.createElement('template');
 inputTemplate.innerHTML = `
-  <style></style>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
+    .task-form{
+      width: 100%;
+    }
+    .task-field{
+      width: calc(100% - 24px);
+      border: none;
+      outline: none;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #F1FAEE;
+      font-family: 'Syne', sans-serif;
+    }
+  </style>
   <form class="task-form">
     <input class="task-field" type="text" placeholder="Type the task you want to add and press enter"/>
   </form>
