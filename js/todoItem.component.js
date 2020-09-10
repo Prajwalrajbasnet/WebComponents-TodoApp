@@ -14,7 +14,7 @@ todoItemTemplate.innerHTML = `
     }
     .taskTitle{
       display: inline-block;
-      width: 65%;
+      width: 70%;
       padding-left: 55px;
     }
 
@@ -97,6 +97,26 @@ todoItemTemplate.innerHTML = `
       border-width: 0 2px 2px 0;
       background-color: transparent;
       border-radius: 0;
+    }
+    button{
+      background: none;
+      outline: none;
+      border: none;
+    }
+    .delete{
+      font-weight: bold;
+      font-size: 18px;
+      color: gray;
+      border-radius: 50%;
+      border: 2px solid gray;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .delete:hover{
+      background: #457B9D;
+      color: #FFF;
+      border: 2px solid #FFF;
     }
   </style>
   <li class="todo">
