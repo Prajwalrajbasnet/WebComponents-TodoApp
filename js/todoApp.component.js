@@ -5,6 +5,7 @@ appTemplate.innerHTML = `
     background-color: #fff;
     display: inline-block;
     min-width: 450px;
+    margin-bottom: 25px;
   }
   ul{
     list-style-type: none;
