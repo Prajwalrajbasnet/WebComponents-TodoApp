@@ -32,7 +32,6 @@ class TodoApp extends HTMLElement {
       appTemplate.content.cloneNode(true)
     );
     // array to store all the todos
-    console.log(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
     this.todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [
       { task: 'Learn Web Components', completed: false },
       { task: 'Finish Todo App', completed: false },
