@@ -1,5 +1,9 @@
 import { html, render } from 'lit-html';
 class TodoItem extends HTMLElement {
+  static get observedAttributes() {
+    console.log('inside observed attributes');
+    return ['task'];
+  }
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -144,11 +148,9 @@ class TodoItem extends HTMLElement {
     this._render();
   }
 
-  static get observedAttributes() {
-    return ['task', 'index', 'completed'];
-  }
-
   attributeChangedCallback(name, oldValue, newValue) {
+    console.log(name, ' : ', newValue);
+
     if (name === 'task') {
       this.task = newValue;
     } else if (name === 'index') {
@@ -173,6 +175,8 @@ class TodoItem extends HTMLElement {
   }
 
   _render() {
+    console.log('rendered single todo');
+    console.log('this.completed: ', this.completed);
     render(
       html`
         <style>

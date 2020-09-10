@@ -40,7 +40,7 @@ class TodoInput extends HTMLElement {
     ev.preventDefault();
     if (!this.taskField.value) return;
     this.dispatchEvent(
-      new CustomEvent('onSubmit', { detail: this.taskField.value })
+      new CustomEvent('submit', { detail: this.taskField.value })
     );
     this.taskField.value = '';
   }
