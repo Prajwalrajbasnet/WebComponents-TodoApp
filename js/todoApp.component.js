@@ -72,6 +72,7 @@ class TodoApp extends HTMLElement {
       ...this.todos.slice(e.detail + 1, this.todos.length),
     ];
     this.render();
+    this.saveTodos();
   }
 
   saveTodos() {
