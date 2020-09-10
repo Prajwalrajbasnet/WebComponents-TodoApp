@@ -4,6 +4,7 @@ todoItemTemplate.innerHTML = `
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
     .todo.completed .taskTitle{
       text-decoration: line-through;
+      color: gray;
     }
     .todo{
       font-family: 'Roboto Condensed', sans-serif;
@@ -19,7 +20,7 @@ todoItemTemplate.innerHTML = `
   </style>
   <li class="todo">
     <input class="toggle-task" type="checkbox" />
-    <label class="taskTitle"></label>
+    <span class="taskTitle"></span>
     <button class="delete">X</button>
   </li>
 `;
