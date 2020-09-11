@@ -1,0 +1,26 @@
+{
+  "name": "todo-app-lithtml",
+  "version": "1.0.0",
+  "description": "A minimal TodoApp built using Web Components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "es-dev-server --app-index index.html --node-resolve --watch --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prajwalrajbasnet/WebComponents-TodoApp.git"
+  },
+  "author": "Prajwal Raj Basnet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Prajwalrajbasnet/WebComponents-TodoApp/issues"
+  },
+  "homepage": "https://github.com/Prajwalrajbasnet/WebComponents-TodoApp#readme",
+  "dependencies": {
+    "lit-html": "^1.3.0"
+  },
+  "devDependencies": {
+    "es-dev-server": "^1.57.4"
+  }
+}

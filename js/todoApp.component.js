@@ -1,56 +1,30 @@
-const appTemplate = document.createElement('template');
-appTemplate.innerHTML = `
-<style>
-  .applet{
-    background-color: #fff;
-    display: inline-block;
-    min-width: 450px;
-    margin-bottom: 25px;
-  }
-  ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  .todo-list{
-    padding: 0 12px;
-    margin-bottom: 20px;
-  }
-</style>
-<section class="applet">
-  <todo-input></todo-input>
-  <ul class="todo-list"></ul>
-</section>
-`;
-
+import { html, render } from 'lit-html';
 const LOCAL_STORAGE_KEY = 'WC-Todos';
 
 class TodoApp extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' }).appendChild(
-      appTemplate.content.cloneNode(true)
-    );
+    this.attachShadow({ mode: 'open' });
     // array to store all the todos
     this.todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [
       { task: 'Learn Web Components', completed: false },
       { task: 'Finish Todo App', completed: false },
       { task: "Learn about project and it's scope", completed: true },
     ];
+    this.toggleCompleted = this.toggleCompleted.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
+    this.addTodo = this.addTodo.bind(this);
   }
 
   connectedCallback() {
-    this.todoInput = this.shadowRoot.querySelector('todo-input');
-    this.todoList = this.shadowRoot.querySelector('.todo-list');
-    this.todoInput.addEventListener('onSubmit', this.addTodo.bind(this));
-    this.render();
     this.saveTodos();
+    this._render();
   }
 
   addTodo(e) {
     this.todos = [...this.todos, { task: e.detail, completed: false }];
-    this.render();
     this.saveTodos();
+    this._render();
   }
 
   removeTodo(e) {
@@ -58,8 +32,8 @@ class TodoApp extends HTMLElement {
       ...this.todos.slice(0, e.detail),
       ...this.todos.slice(e.detail + 1, this.todos.length),
     ];
-    this.render();
     this.saveTodos();
+    this._render();
   }
 
   toggleCompleted(e) {
@@ -78,18 +52,42 @@ class TodoApp extends HTMLElement {
   }
 
   //method which gets called initially and everytime the UI needs to update
-  render() {
-    if (!this.todoList) return;
-    this.todoList.innerHTML = '';
-    this.todos.forEach((item, index) => {
-      const todoItem = document.createElement('todo-item');
-      todoItem.setAttribute('task', item.task);
-      todoItem.index = index;
-      todoItem.completed = item.completed;
-      todoItem.addEventListener('onToggle', this.toggleCompleted.bind(this));
-      todoItem.addEventListener('onDelete', this.removeTodo.bind(this));
-      this.todoList.appendChild(todoItem);
-    });
+  _render() {
+    render(
+      html` <style>
+          .applet {
+            background-color: #fff;
+            display: inline-block;
+            min-width: 450px;
+            margin-bottom: 25px;
+          }
+          ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+          }
+          .todo-list {
+            padding: 0 12px;
+            margin-bottom: 20px;
+          }
+        </style>
+        <section class="applet">
+          <todo-input @submit=${this.addTodo}></todo-input>
+          <ul class="todo-list">
+            ${this.todos.map(
+              (item, index) =>
+                html`<todo-item
+                  task=${item.task}
+                  completed=${item.completed}
+                  index=${index}
+                  @toggle=${this.toggleCompleted}
+                  @delete=${this.removeTodo}
+                ></todo-item>`
+            )}
+          </ul>
+        </section>`,
+      this.shadowRoot
+    );
   }
 }
 customElements.define('todo-app', TodoApp);
