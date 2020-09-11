@@ -44,7 +44,7 @@ class TodoApp extends HTMLElement {
     // });
     // this.todos = [...list];
     this.todos = this.todos.map((todo, index) => {
-      if (e.detail === index) todo.completed = !todo.completed;
+      if (e.detail == index) todo.completed = !todo.completed;
       return todo;
     });
     this.saveTodos();
