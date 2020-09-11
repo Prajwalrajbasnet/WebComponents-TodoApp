@@ -77,9 +77,9 @@ class TodoApp extends HTMLElement {
             ${this.todos.map(
               (item, index) =>
                 html`<todo-item
-                  task=${item.task}
-                  completed=${item.completed}
-                  index=${index}
+                  .task=${item.task}
+                  .completed=${item.completed}
+                  .index=${index}
                   @toggle=${this.toggleCompleted}
                   @delete=${this.removeTodo}
                 ></todo-item>`
