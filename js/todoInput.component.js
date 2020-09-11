@@ -3,7 +3,20 @@ import { html, LitElement } from 'lit-element';
 class TodoInput extends LitElement {
   constructor() {
     super();
-    this.formTemplate = html` <style>
+  }
+
+  handleSubmit(ev) {
+    this.taskField = this.shadowRoot.querySelector('.task-field');
+    ev.preventDefault();
+    if (!this.taskField.value) return;
+    this.dispatchEvent(
+      new CustomEvent('submit', { detail: this.taskField.value })
+    );
+    this.taskField.value = '';
+  }
+
+  render() {
+    return html` <style>
         @import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
         .task-form {
           width: 100%;
@@ -30,20 +43,6 @@ class TodoInput extends LitElement {
           placeholder="Type the task you want to add and press enter"
         />
       </form>`;
-  }
-
-  handleSubmit(ev) {
-    this.taskField = this.shadowRoot.querySelector('.task-field');
-    ev.preventDefault();
-    if (!this.taskField.value) return;
-    this.dispatchEvent(
-      new CustomEvent('submit', { detail: this.taskField.value })
-    );
-    this.taskField.value = '';
-  }
-
-  render() {
-    return html` ${this.formTemplate} `;
   }
 }
 
