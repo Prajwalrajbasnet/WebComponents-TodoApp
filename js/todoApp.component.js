@@ -17,14 +17,14 @@ class TodoApp extends HTMLElement {
   }
 
   connectedCallback() {
-    this._render();
     this.saveTodos();
+    this._render();
   }
 
   addTodo(e) {
     this.todos = [...this.todos, { task: e.detail, completed: false }];
-    this._render();
     this.saveTodos();
+    this._render();
   }
 
   removeTodo(e) {
@@ -32,8 +32,8 @@ class TodoApp extends HTMLElement {
       ...this.todos.slice(0, e.detail),
       ...this.todos.slice(e.detail + 1, this.todos.length),
     ];
-    this._render();
     this.saveTodos();
+    this._render();
   }
 
   toggleCompleted(e) {
@@ -43,8 +43,8 @@ class TodoApp extends HTMLElement {
       completed: !itemBefore.completed,
     });
     this.todos = [...list];
-    this._render();
     this.saveTodos();
+    this._render();
   }
 
   saveTodos() {
