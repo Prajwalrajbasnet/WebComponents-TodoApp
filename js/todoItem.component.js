@@ -91,7 +91,6 @@ class TodoItem extends LitElement {
           -ms-transition: all 0.3s ease-out;
           -o-transition: all 0.3s ease-out;
         }
-
         .checkbox-label input:checked ~ .checkbox-custom::after {
           -webkit-transform: rotate(45deg) scale(1);
           -ms-transform: rotate(45deg) scale(1);
