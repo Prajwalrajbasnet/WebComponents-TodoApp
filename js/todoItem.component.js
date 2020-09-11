@@ -7,6 +7,7 @@ class TodoItem extends LitElement {
       },
       completed: {
         type: Boolean,
+        attrName: 'completed',
       },
       index: {
         type: Number,
