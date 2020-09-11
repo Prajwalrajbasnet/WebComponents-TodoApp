@@ -1,12 +1,21 @@
-import { html, render } from 'lit-html';
-class TodoItem extends HTMLElement {
-  static get observedAttributes() {
-    return ['task', 'index', 'completed'];
+import { html, LitElement } from 'lit-element';
+class TodoItem extends LitElement {
+  static get properties() {
+    return {
+      task: {
+        type: String,
+      },
+      completed: {
+        type: Boolean,
+      },
+      index: {
+        type: Number,
+      },
+    };
   }
+
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-
     this.taskTogglerTemplate = (completed) =>
       html`
         <style>
@@ -144,27 +153,6 @@ class TodoItem extends HTMLElement {
     `;
   }
 
-  connectedCallback() {
-    this._render();
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    console.log(name, ' : ', newValue);
-
-    if (name === 'task') {
-      this.task = newValue;
-    } else if (name === 'index') {
-      this.index = newValue;
-    } else if (name === 'completed') {
-      if (newValue === 'true') {
-        this.completed = true;
-      } else if ((newValue = 'false')) {
-        this.completed = false;
-      }
-    }
-    this._render();
-  }
-
   dispatchToggle(ev) {
     ev.preventDefault();
     this.dispatchEvent(new CustomEvent('toggle', { detail: this.index }));
@@ -175,29 +163,26 @@ class TodoItem extends HTMLElement {
     this.dispatchEvent(new CustomEvent('delete', { detail: this.index }));
   }
 
-  _render() {
-    render(
-      html`
-        <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
-          .todo.completed .taskTitle {
-            text-decoration: line-through;
-            color: gray;
-          }
-          .todo {
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
-            padding: 15px 0;
-            border-bottom: 1px solid #d3d3d3;
-          }
-        </style>
-        <li class="todo ${this.completed ? 'completed' : ''}">
-          ${this.taskTogglerTemplate(this.completed)}
-          ${this.taskTitleTemplate(this.task)} ${this.deleteBtnTemplate}
-        </li>
-      `,
-      this.shadowRoot
-    );
+  render() {
+    return html`
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
+        .todo.completed .taskTitle {
+          text-decoration: line-through;
+          color: gray;
+        }
+        .todo {
+          font-family: 'Roboto Condensed', sans-serif;
+          font-weight: 300;
+          padding: 15px 0;
+          border-bottom: 1px solid #d3d3d3;
+        }
+      </style>
+      <li class="todo ${this.completed ? 'completed' : ''}">
+        ${this.taskTogglerTemplate(this.completed)}
+        ${this.taskTitleTemplate(this.task)} ${this.deleteBtnTemplate}
+      </li>
+    `;
   }
 }
 
