@@ -1,9 +1,8 @@
-import { html, render } from 'lit-html';
+import { html, LitElement } from 'lit-element';
 
-class TodoInput extends HTMLElement {
+class TodoInput extends LitElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
     this.formTemplate = html` <style>
         @import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
         .task-form {
@@ -31,8 +30,6 @@ class TodoInput extends HTMLElement {
           placeholder="Type the task you want to add and press enter"
         />
       </form>`;
-
-    render(this.formTemplate, this.shadowRoot);
   }
 
   handleSubmit(ev) {
@@ -43,6 +40,10 @@ class TodoInput extends HTMLElement {
       new CustomEvent('submit', { detail: this.taskField.value })
     );
     this.taskField.value = '';
+  }
+
+  render() {
+    return html` ${this.formTemplate} `;
   }
 }
 
