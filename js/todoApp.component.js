@@ -47,6 +47,7 @@ class TodoApp extends HTMLElement {
     this.saveTodos();
   }
 
+  //get current todos and save them to the localstorage
   saveTodos() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.todos));
   }
