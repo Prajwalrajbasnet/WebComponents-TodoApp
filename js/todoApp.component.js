@@ -22,7 +22,6 @@ class TodoApp extends HTMLElement {
   }
 
   addTodo(e) {
-    console.log('adding todo');
     this.todos = [...this.todos, { task: e.detail, completed: false }];
     this._render();
     this.saveTodos();
@@ -54,7 +53,6 @@ class TodoApp extends HTMLElement {
 
   //method which gets called initially and everytime the UI needs to update
   _render() {
-    console.log('rendered main app');
     render(
       html` <style>
           .applet {
@@ -79,9 +77,9 @@ class TodoApp extends HTMLElement {
             ${this.todos.map(
               (item, index) =>
                 html`<todo-item
-                  .task=${item.task}
-                  .completed=${item.completed}
-                  .index=${index}
+                  task=${item.task}
+                  completed=${item.completed}
+                  index=${index}
                   @toggle=${this.toggleCompleted}
                   @delete=${this.removeTodo}
                 ></todo-item>`
