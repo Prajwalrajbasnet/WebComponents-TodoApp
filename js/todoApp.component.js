@@ -18,6 +18,7 @@ class TodoApp extends LitElement {
   addTodo(e) {
     this.todos = [...this.todos, { task: e.detail, completed: false }];
     this.saveTodos();
+    this.requestUpdate('todos');
   }
 
   removeTodo(e) {
@@ -26,6 +27,7 @@ class TodoApp extends LitElement {
       ...this.todos.slice(e.detail + 1, this.todos.length),
     ];
     this.saveTodos();
+    this.requestUpdate('todos');
   }
 
   toggleCompleted(e) {
@@ -36,6 +38,7 @@ class TodoApp extends LitElement {
     });
     this.todos = [...list];
     this.saveTodos();
+    this.requestUpdate('todos');
   }
 
   saveTodos() {
