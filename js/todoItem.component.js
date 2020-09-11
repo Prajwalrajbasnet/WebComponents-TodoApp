@@ -12,6 +12,12 @@ class TodoItem extends LitElement {
       index: {
         type: Number,
       },
+      toggle: {
+        type: Function,
+      },
+      delete: {
+        type: Function,
+      },
     };
   }
 
@@ -106,7 +112,7 @@ class TodoItem extends LitElement {
           class="toggle-task checkbox "
           ?checked=${completed}
           @click=${(e) => {
-            this.dispatchToggle(e);
+            this.handleToggle();
           }}
           type="checkbox"
         />
@@ -150,7 +156,7 @@ class TodoItem extends LitElement {
       <button
         class="delete"
         @click=${(e) => {
-          this.dispatchDelete(e);
+          this.handleDelete();
         }}
       >
         X
@@ -158,14 +164,12 @@ class TodoItem extends LitElement {
     `;
   }
 
-  dispatchToggle(ev) {
-    ev.preventDefault();
-    this.dispatchEvent(new CustomEvent('toggle', { detail: this.index }));
+  handleToggle() {
+    this.toggle(this.index);
   }
 
-  dispatchDelete(ev) {
-    ev.preventDefault();
-    this.dispatchEvent(new CustomEvent('delete', { detail: this.index }));
+  handleDelete() {
+    this.delete(this.index);
   }
 
   render() {

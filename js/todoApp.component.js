@@ -15,28 +15,26 @@ class TodoApp extends LitElement {
     this.addTodo = this.addTodo.bind(this);
   }
 
-  addTodo(e) {
-    this.todos = [...this.todos, { task: e.detail, completed: false }];
+  addTodo(taskTitle) {
+    this.todos = [...this.todos, { task: taskTitle, completed: false }];
     this.saveTodos();
     this.requestUpdate('todos');
   }
 
-  removeTodo(e) {
+  removeTodo(itemIndex) {
     this.todos = [
-      ...this.todos.slice(0, e.detail),
-      ...this.todos.slice(e.detail + 1, this.todos.length),
+      ...this.todos.slice(0, itemIndex),
+      ...this.todos.slice(itemIndex + 1, this.todos.length),
     ];
     this.saveTodos();
     this.requestUpdate('todos');
   }
 
-  toggleCompleted(e) {
-    const itemBefore = this.todos[e.detail];
-    const list = [...this.todos];
-    list[e.detail] = Object.assign({}, itemBefore, {
-      completed: !itemBefore.completed,
+  toggleCompleted(itemIndex) {
+    this.todos = this.todos.map((todo, index) => {
+      if (index == itemIndex) todo.completed = !todo.completed;
+      return todo;
     });
-    this.todos = [...list];
     this.saveTodos();
     this.requestUpdate('todos');
   }
@@ -65,7 +63,7 @@ class TodoApp extends LitElement {
         }
       </style>
       <section class="applet">
-        <todo-input @submit=${this.addTodo}></todo-input>
+        <todo-input .submit=${this.addTodo}></todo-input>
         <ul class="todo-list">
           ${this.todos.map(
             (item, index) =>
@@ -73,8 +71,8 @@ class TodoApp extends LitElement {
                 .task=${item.task}
                 .completed=${item.completed}
                 .index=${index}
-                @toggle=${this.toggleCompleted}
-                @delete=${this.removeTodo}
+                .toggle=${this.toggleCompleted}
+                .delete=${this.removeTodo}
               ></todo-item>`
           )}
         </ul>

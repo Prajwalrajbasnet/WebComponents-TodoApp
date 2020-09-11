@@ -9,9 +9,7 @@ class TodoInput extends LitElement {
     this.taskField = this.shadowRoot.querySelector('.task-field');
     ev.preventDefault();
     if (!this.taskField.value) return;
-    this.dispatchEvent(
-      new CustomEvent('submit', { detail: this.taskField.value })
-    );
+    this.submit(this.taskField.value);
     this.taskField.value = '';
   }
 
