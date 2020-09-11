@@ -39,6 +39,7 @@ class TodoApp extends LitElement {
     this.requestUpdate('todos');
   }
 
+  //get current todos and save them to the localstorage
   saveTodos() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.todos));
   }
